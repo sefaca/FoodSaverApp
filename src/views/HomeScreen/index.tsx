@@ -9,6 +9,7 @@ import {
   PendingView,
   TextRecognized,
 } from './styles';
+import CameraButton from '../../common/ui/components/CameraButton';
 
 // Componente para mostrar una vista de carga mientras la cámara se inicializa
 const PendingViewComponent = () => (
@@ -76,7 +77,7 @@ export const HomeScreen = () => {
           }
           return (
             <ButtonCameraContainer>
-              <Button
+              <CameraButton
                 title="Take Picture"
                 onPress={() => takePicture(camera)}
               />
