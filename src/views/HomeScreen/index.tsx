@@ -1,17 +1,20 @@
 import React, {useState, useRef} from 'react';
-import {Button, Text} from 'react-native';
+import {Button, Text, Modal, View, StyleSheet} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import TextRecognition from 'react-native-text-recognition';
 import {
   ButtonCameraContainer,
   Camera,
+  CenteredView,
   Container,
+  ModalText,
+  ModalView,
   PendingView,
   TextRecognized,
 } from './styles';
 import CameraButton from '../../common/ui/components/CameraButton';
+import AddProductButton from '../../common/ui/components/AddProductButton';
 
-// Componente para mostrar una vista de carga mientras la cámara se inicializa
 const PendingViewComponent = () => (
   <PendingView>
     <Text>Loading...</Text>
@@ -21,6 +24,8 @@ const PendingViewComponent = () => (
 export const HomeScreen = () => {
   const [imageUri, setImageUri] = useState(null);
   const [recognizedText, setRecognizedText] = useState('');
+  const [foundDate, setFoundDate] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
   const cameraRef = useRef(null);
 
   const takePicture = async camera => {
@@ -55,13 +60,20 @@ export const HomeScreen = () => {
       foundDate = '0' + foundDate;
     }
 
+    setFoundDate(foundDate);
     setRecognizedText(foundDate);
     console.log('Fecha reconocida:', foundDate);
+
+    // Mostrar el modal si se encuentra una fecha
+    if (foundDate) {
+      setModalVisible(true);
+    }
   };
 
   return (
     <Container>
       <Camera
+        ref={cameraRef}
         captureAudio={false}
         type={RNCamera.Constants.Type.back}
         flashMode={RNCamera.Constants.FlashMode.off}
@@ -86,7 +98,22 @@ export const HomeScreen = () => {
         }}
       </Camera>
 
-      <TextRecognized>{recognizedText}</TextRecognized>
+      {/* <TextRecognized>{recognizedText}</TextRecognized> */}
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}>
+        <CenteredView>
+          <ModalView>
+            <ModalText>Fecha de caducidad: {foundDate}</ModalText>
+            <AddProductButton onPress={() => setModalVisible(false)} />
+          </ModalView>
+        </CenteredView>
+      </Modal>
     </Container>
   );
 };
