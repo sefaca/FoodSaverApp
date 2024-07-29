@@ -1,18 +1,20 @@
-import type {FC} from 'react';
-import {memo} from 'react';
 import React from 'react';
-import {Container, Pressable, Title} from './styles';
-// import Icon from 'react-native-vector-icons/FontAwesome';
-// import {Icon} from 'react-native-elements';
-import type {Props} from './types';
+import {memo} from 'react';
+import {TouchableOpacity} from 'react-native';
+import PropTypes from 'prop-types';
+import {Container, Text, Title} from './styles';
 
-const CameraButton: FC<Props> = ({onPress, style}) => (
-  <Container style={style}>
-    <Pressable enabled={!!onPress} onPress={onPress}>
-      {/* <Icon name="camera-alt" color="gray" size={28} /> */}
+const AddProductButton = ({onPress, style}) => (
+  <Container>
+    <TouchableOpacity onPress={onPress}>
       <Title>Añadir Producto</Title>
-    </Pressable>
+    </TouchableOpacity>
   </Container>
 );
 
-export default memo(CameraButton);
+AddProductButton.propTypes = {
+  onPress: PropTypes.func.isRequired,
+  style: PropTypes.object,
+};
+
+export default memo(AddProductButton);

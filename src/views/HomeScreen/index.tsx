@@ -1,7 +1,8 @@
 import React, {useState, useRef} from 'react';
-import {Button, Text, Modal, View, StyleSheet} from 'react-native';
+import {Text, Modal, View, StyleSheet} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import TextRecognition from 'react-native-text-recognition';
+import {useNavigation} from '@react-navigation/native';
 import {
   ButtonCameraContainer,
   Camera,
@@ -10,7 +11,6 @@ import {
   ModalText,
   ModalView,
   PendingView,
-  TextRecognized,
 } from './styles';
 import CameraButton from '../../common/ui/components/CameraButton';
 import AddProductButton from '../../common/ui/components/AddProductButton';
@@ -27,17 +27,16 @@ export const HomeScreen = () => {
   const [foundDate, setFoundDate] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const cameraRef = useRef(null);
+  const navigation = useNavigation();
 
   const takePicture = async camera => {
     const options = {quality: 0.5, base64: true};
     const data = await camera.takePictureAsync(options);
     setImageUri(data.uri);
 
-    // Reconocimiento de texto en la imagen capturada
     const textBlocks = await TextRecognition.recognize(data.uri);
     console.log('Text Blocks:', textBlocks);
 
-    // Buscar la primera fecha con el formato xx/xx/xxxx, xx/xx, xx/xxxx o x/yyyy
     let foundDate = '';
     const dateRegex =
       /\b(\d{2}\/\d{2}(\/\d{4})?|\d{2}\/\d{4}|\d{1}\/\d{4}|\d{2}\d{4})\b/;
@@ -46,16 +45,14 @@ export const HomeScreen = () => {
       const matches = block.match(dateRegex);
       if (matches) {
         foundDate = matches[0];
-        break; // Salir del bucle al encontrar la primera fecha
+        break;
       }
     }
 
-    // Si se encuentra un patrón como xx xxxx (sin separador), convertirlo a xx/xxxx
     if (foundDate && /^\d{6}$/.test(foundDate)) {
       foundDate = foundDate.slice(0, 2) + '/' + foundDate.slice(2);
     }
 
-    // Si se encuentra un patrón como x/yyyy, agregar el cero delante del dígito del mes
     if (foundDate && /^\d{1}\/\d{4}$/.test(foundDate)) {
       foundDate = '0' + foundDate;
     }
@@ -64,10 +61,14 @@ export const HomeScreen = () => {
     setRecognizedText(foundDate);
     console.log('Fecha reconocida:', foundDate);
 
-    // Mostrar el modal si se encuentra una fecha
     if (foundDate) {
       setModalVisible(true);
     }
+  };
+
+  const handleAddProduct = () => {
+    setModalVisible(false);
+    navigation.navigate('AddProduct');
   };
 
   return (
@@ -98,8 +99,6 @@ export const HomeScreen = () => {
         }}
       </Camera>
 
-      {/* <TextRecognized>{recognizedText}</TextRecognized> */}
-
       <Modal
         animationType="slide"
         transparent={true}
@@ -110,7 +109,7 @@ export const HomeScreen = () => {
         <CenteredView>
           <ModalView>
             <ModalText>Fecha de caducidad: {foundDate}</ModalText>
-            <AddProductButton onPress={() => setModalVisible(false)} />
+            <AddProductButton onPress={handleAddProduct} />
           </ModalView>
         </CenteredView>
       </Modal>
