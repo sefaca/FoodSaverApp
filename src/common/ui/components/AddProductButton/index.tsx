@@ -2,9 +2,9 @@ import React from 'react';
 import {memo} from 'react';
 import {TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
-import {Container, Text, Title} from './styles';
+import {Container, Title} from './styles';
 
-const AddProductButton = ({onPress, style}) => (
+const AddProductButton = ({onPress}) => (
   <Container>
     <TouchableOpacity onPress={onPress}>
       <Title>Añadir Producto</Title>

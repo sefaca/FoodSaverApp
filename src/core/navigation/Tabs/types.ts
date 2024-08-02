@@ -6,4 +6,5 @@ export type RootTabParamList = {
   Episode: undefined;
   HomeScreen: undefined;
   AddProduct: undefined;
+  ChooseScreen: undefined;
 };

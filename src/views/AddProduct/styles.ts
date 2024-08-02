@@ -5,6 +5,8 @@ export const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
+  margin-top: 0px;
+  background-color: ${({theme}) => theme.colors.greenSoft};
 `;
 
 export const Text = styled.Text`

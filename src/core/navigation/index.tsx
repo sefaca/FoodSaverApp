@@ -6,13 +6,14 @@ import {generalStackScreenOptions, rootStackScreenOptions} from './constants';
 // import {Tabs} from './Tabs';
 import type {RootParamsList} from './types';
 import AddProduct from '../../views/AddProduct';
+import {ChooseScreen} from '../../views/ChooseScreen';
 
 const {Navigator, Group, Screen} = createNativeStackNavigator<RootParamsList>();
 
 const AppNavigator: FC = () => (
   <Navigator screenOptions={rootStackScreenOptions}>
     <Group screenOptions={generalStackScreenOptions}>
-      {/* <Screen name="Tabs" component={Tabs} /> */}
+      <Screen name="ChooseScreen" component={ChooseScreen} />
       <Screen name="HomeScreen" component={HomeScreen} />
       <Screen name="Blank" component={Blank} />
       <Screen name="AddProduct" component={AddProduct} />

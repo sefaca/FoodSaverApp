@@ -18,6 +18,7 @@ export type RootParamsList = {
   Blank: undefined;
   HomeScreen: undefined;
   AddProduct: undefined;
+  ChooseScreen: undefined;
 };
 
 export type ScreensParamsList = RootParamsList & RootTabParamList;
