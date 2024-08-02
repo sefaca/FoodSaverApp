@@ -66,6 +66,21 @@ export const ModalView = styled.View`
   width: 100%;
 `;
 
+export const ProductInfo = styled.View`
+  flex-direction: row;
+  padding: 15px;
+  margin-left: 10px;
+  align-items: center;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+export const ImageModal = styled.Image`
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+`;
+
 export const ModalText = styled(Text).attrs({
   variant: 'body15-semibold',
 })`
