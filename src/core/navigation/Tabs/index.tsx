@@ -2,7 +2,7 @@
 // import type {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 // import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 // import TabBarBottom from '../../../common/ui/components/TabBarBottom';
-// import {Blank} from '../../../views/Blank';
+// import {} from '../../../views/Blank';
 // // import {CharacterDetail} from 'views/CharacterDetail';
 // import {tabStackScreenOptions} from '../constants';
 // import type {RootTabParamList} from './types';

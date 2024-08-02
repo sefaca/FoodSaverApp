@@ -7,6 +7,8 @@ const tabs: Record<keyof RootTabParamList, string> = {
   Location: 'Location',
   Blank: 'Blank',
   HomeScreen: 'HomeScreen',
+  AddProduct: 'AddProduct',
+  ChooseScreen: 'ChooseScreen',
 };
 
 const actions = {

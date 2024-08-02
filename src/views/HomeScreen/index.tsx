@@ -1,8 +1,120 @@
-import {Container, Text} from './styles';
-import type {Props} from './types';
+import React, {useState, useRef} from 'react';
+import {Text, Modal, View, StyleSheet} from 'react-native';
+import {RNCamera} from 'react-native-camera';
+import TextRecognition from 'react-native-text-recognition';
+import {useNavigation} from '@react-navigation/native';
+import {
+  ButtonCameraContainer,
+  Camera,
+  CenteredView,
+  Container,
+  ModalText,
+  ModalView,
+  PendingView,
+} from './styles';
+import CameraButton from '../../common/ui/components/CameraButton';
+import AddProductButton from '../../common/ui/components/AddProductButton';
 
-export const HomeScreen: Props = () => (
-  <Container>
-    <Text>Hi!</Text>
-  </Container>
+const PendingViewComponent = () => (
+  <PendingView>
+    <Text>Loading...</Text>
+  </PendingView>
 );
+
+export const HomeScreen = () => {
+  const [imageUri, setImageUri] = useState(null);
+  const [recognizedText, setRecognizedText] = useState('');
+  const [foundDate, setFoundDate] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const cameraRef = useRef(null);
+  const navigation = useNavigation();
+
+  const takePicture = async camera => {
+    const options = {quality: 0.5, base64: true};
+    const data = await camera.takePictureAsync(options);
+    setImageUri(data.uri);
+
+    const textBlocks = await TextRecognition.recognize(data.uri);
+    console.log('Text Blocks:', textBlocks);
+
+    let foundDate = '';
+    const dateRegex =
+      /\b(\d{2}\/\d{2}(\/\d{4})?|\d{2}\/\d{4}|\d{1}\/\d{4}|\d{2}\d{4})\b/;
+    for (let i = 0; i < textBlocks.length; i++) {
+      const block = textBlocks[i];
+      const matches = block.match(dateRegex);
+      if (matches) {
+        foundDate = matches[0];
+        break;
+      }
+    }
+
+    if (foundDate && /^\d{6}$/.test(foundDate)) {
+      foundDate = foundDate.slice(0, 2) + '/' + foundDate.slice(2);
+    }
+
+    if (foundDate && /^\d{1}\/\d{4}$/.test(foundDate)) {
+      foundDate = '0' + foundDate;
+    }
+
+    setFoundDate(foundDate);
+    setRecognizedText(foundDate);
+    console.log('Fecha reconocida:', foundDate);
+
+    if (foundDate) {
+      setModalVisible(true);
+    }
+  };
+
+  const handleAddProduct = () => {
+    setModalVisible(false);
+    navigation.navigate('AddProduct');
+  };
+
+  return (
+    <Container>
+      <Camera
+        ref={cameraRef}
+        captureAudio={false}
+        type={RNCamera.Constants.Type.back}
+        flashMode={RNCamera.Constants.FlashMode.off}
+        androidCameraPermissionOptions={{
+          title: 'Permission to use camera',
+          message: 'We need your permission to use your camera',
+          buttonPositive: 'Ok',
+          buttonNegative: 'Cancel',
+        }}>
+        {({camera, status}) => {
+          if (status !== 'READY') {
+            return <PendingViewComponent />;
+          }
+          return (
+            <ButtonCameraContainer>
+              <CameraButton
+                title="Take Picture"
+                onPress={() => takePicture(camera)}
+              />
+            </ButtonCameraContainer>
+          );
+        }}
+      </Camera>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}>
+        <CenteredView>
+          <ModalView>
+            <ModalText>Fecha de caducidad: {foundDate}</ModalText>
+            <AddProductButton onPress={handleAddProduct} />
+          </ModalView>
+        </CenteredView>
+      </Modal>
+    </Container>
+  );
+};
+
+export default HomeScreen;
