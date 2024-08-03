@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import {Text, Modal, View, StyleSheet} from 'react-native';
+import {Text, Modal, View, StyleSheet, TextInput} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import TextRecognition from 'react-native-text-recognition';
 import {useNavigation} from '@react-navigation/native';
@@ -14,6 +14,7 @@ import {
 } from './styles';
 import CameraButton from '../../common/ui/components/CameraButton';
 import AddProductButton from '../../common/ui/components/AddProductButton';
+import {useProducts} from '../AddFreshProduct/ProductsContext';
 
 const PendingViewComponent = () => (
   <PendingView>
@@ -24,10 +25,12 @@ const PendingViewComponent = () => (
 export const HomeScreen = () => {
   const [imageUri, setImageUri] = useState(null);
   const [recognizedText, setRecognizedText] = useState('');
+  const [productName, setProductName] = useState('');
   const [foundDate, setFoundDate] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const cameraRef = useRef(null);
   const navigation = useNavigation();
+  const {addProduct} = useProducts();
 
   const takePicture = async camera => {
     const options = {quality: 0.5, base64: true};
@@ -66,9 +69,17 @@ export const HomeScreen = () => {
     }
   };
 
+  // const handleAddProduct = () => {
+  //   setModalVisible(false);
+  //   navigation.navigate('AddProduct');
+  // };
+
   const handleAddProduct = () => {
+    addProduct({name: productName, image: imageUri});
     setModalVisible(false);
-    navigation.navigate('AddProduct');
+    setProductName('');
+    setImageUri(null);
+    navigation.navigate('Fridge');
   };
 
   return (
@@ -109,6 +120,12 @@ export const HomeScreen = () => {
         <CenteredView>
           <ModalView>
             <ModalText>Fecha de caducidad: {foundDate}</ModalText>
+            <TextInput
+              placeholder="Nombre del producto"
+              value={productName}
+              onChangeText={setProductName}
+              style={styles.input}
+            />
             <AddProductButton onPress={handleAddProduct} />
           </ModalView>
         </CenteredView>
@@ -116,5 +133,18 @@ export const HomeScreen = () => {
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    paddingLeft: 8,
+    marginLeft: 10,
+    marginBottom: 10,
+    width: '80%',
+    borderRadius: 10,
+  },
+});
 
 export default HomeScreen;

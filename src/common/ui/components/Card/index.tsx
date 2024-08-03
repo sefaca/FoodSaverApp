@@ -1,19 +1,38 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
-import {TouchableOpacity, Text} from 'react-native';
-import {Container, Image, TitleRecipe, Description} from './styles';
+import React, {useState} from 'react';
+import {TouchableOpacity} from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
+import {Container, Image, ProductData, TitleProduct} from './styles';
 import type {Props} from './types';
 
-const Card: React.FC<Props> = ({image, title, nutriScore, description, onPress}) => {
+const Card: React.FC<Props> = ({
+  image,
+  title,
+  // nutriScore,
+  // description,
+  onPress,
+}) => {
+  const [isSelected, setIsSelected] = useState(false);
+
+  const toggleCheckbox = () => {
+    setIsSelected(!isSelected);
+  };
+
   return (
     <TouchableOpacity onPress={onPress}>
       <Container>
-        <Image source={{uri: image}} />
-        <TitleRecipe numberOfLines={1}>{title}</TitleRecipe>
-        {nutriScore && (
-          <Text style={{marginVertical: 5, fontWeight: 'bold'}}>Nutri-Score: {nutriScore.toUpperCase()}</Text>
-        )}
+        <CheckBox value={isSelected} onValueChange={toggleCheckbox} />
+        <Image source={{uri: image}} style={{marginLeft: 10}} />
+        <ProductData>
+
+        <TitleProduct numberOfLines={1}>{title}</TitleProduct>
+        {/* {nutriScore && (
+          <Text style={{marginVertical: 5, fontWeight: 'bold'}}>
+            Nutri-Score: {nutriScore.toUpperCase()}
+          </Text>
+        )} */}
         {/* <Description numberOfLines={2}>{description}</Description> */}
+        </ProductData>
       </Container>
     </TouchableOpacity>
   );
