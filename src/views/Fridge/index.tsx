@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {FlatList} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {Container} from './styles';
 import Card from '../../common/ui/components/Card';
 import {useProducts} from '../AddFreshProduct/ProductsContext';
@@ -8,6 +9,7 @@ import Placeholder from '../../common/ui/components/Placeholder';
 export const Fridge = () => {
   const {products} = useProducts();
   const [searchTerm, setSearchTerm] = useState('');
+  const navigation = useNavigation();
 
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -19,6 +21,7 @@ export const Fridge = () => {
         placeholderInput="Busca el producto"
         value={searchTerm}
         onChangeText={setSearchTerm}
+        onBackPress={() => navigation.goBack()}
       />
       <FlatList
         data={filteredProducts}
