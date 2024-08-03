@@ -1,6 +1,5 @@
 import CircleButton from '../../common/ui/components/ChooseButton';
-import {ButtonContainer, Container, Text, Title} from './styles';
-import type {Props} from './types';
+import {ButtonContainer, Container, Title} from './styles';
 import {useNavigation} from '@react-navigation/native';
 
 export const ChooseScreen = () => {
@@ -10,11 +9,18 @@ export const ChooseScreen = () => {
     navigation.navigate('HomeScreen');
   };
 
+  const handleAddFreshProductScreen = () => {
+    navigation.navigate('AddFreshProduct');
+  };
+
   return (
     <Container>
       <Title>Food Saver!</Title>
       <ButtonContainer>
-        <CircleButton title="Añade un producto fresco" />
+        <CircleButton
+          title="Añade un producto fresco"
+          onPress={handleAddFreshProductScreen}
+        />
         <CircleButton
           title="Añade un producto con caducidad"
           onPress={handleHomeScreen}

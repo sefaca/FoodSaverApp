@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import {Text, Modal, View, StyleSheet, TextInput} from 'react-native';
+import {Text, Modal, View, TextInput, StyleSheet, Image} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import TextRecognition from 'react-native-text-recognition';
 import {useNavigation} from '@react-navigation/native';
@@ -8,13 +8,15 @@ import {
   Camera,
   CenteredView,
   Container,
+  ImageModal,
   ModalText,
   ModalView,
   PendingView,
+  ProductInfo,
 } from './styles';
 import CameraButton from '../../common/ui/components/CameraButton';
 import AddProductButton from '../../common/ui/components/AddProductButton';
-import {useProducts} from '../AddFreshProduct/ProductsContext';
+import {useProducts} from './ProductsContext';
 
 const PendingViewComponent = () => (
   <PendingView>
@@ -22,11 +24,9 @@ const PendingViewComponent = () => (
   </PendingView>
 );
 
-export const HomeScreen = () => {
+export const AddFreshProduct = () => {
   const [imageUri, setImageUri] = useState(null);
-  const [recognizedText, setRecognizedText] = useState('');
   const [productName, setProductName] = useState('');
-  const [foundDate, setFoundDate] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const cameraRef = useRef(null);
   const navigation = useNavigation();
@@ -40,39 +40,8 @@ export const HomeScreen = () => {
     const textBlocks = await TextRecognition.recognize(data.uri);
     console.log('Text Blocks:', textBlocks);
 
-    let foundDate = '';
-    const dateRegex =
-      /\b(\d{2}\/\d{2}(\/\d{4})?|\d{2}\/\d{4}|\d{1}\/\d{4}|\d{2}\d{4})\b/;
-    for (let i = 0; i < textBlocks.length; i++) {
-      const block = textBlocks[i];
-      const matches = block.match(dateRegex);
-      if (matches) {
-        foundDate = matches[0];
-        break;
-      }
-    }
-
-    if (foundDate && /^\d{6}$/.test(foundDate)) {
-      foundDate = foundDate.slice(0, 2) + '/' + foundDate.slice(2);
-    }
-
-    if (foundDate && /^\d{1}\/\d{4}$/.test(foundDate)) {
-      foundDate = '0' + foundDate;
-    }
-
-    setFoundDate(foundDate);
-    setRecognizedText(foundDate);
-    console.log('Fecha reconocida:', foundDate);
-
-    if (foundDate) {
-      setModalVisible(true);
-    }
+    setModalVisible(true);
   };
-
-  // const handleAddProduct = () => {
-  //   setModalVisible(false);
-  //   navigation.navigate('AddProduct');
-  // };
 
   const handleAddProduct = () => {
     addProduct({name: productName, image: imageUri});
@@ -119,14 +88,19 @@ export const HomeScreen = () => {
         }}>
         <CenteredView>
           <ModalView>
-            <ModalText>Fecha de caducidad: {foundDate}</ModalText>
-            <TextInput
-              placeholder="Nombre del producto"
-              value={productName}
-              onChangeText={setProductName}
-              style={styles.input}
+            <ProductInfo>
+              {imageUri && <ImageModal source={{uri: imageUri}} />}
+              <TextInput
+                placeholder="Nombre del producto"
+                value={productName}
+                onChangeText={setProductName}
+                style={styles.input}
+              />
+            </ProductInfo>
+            <AddProductButton
+              title="Agregar Producto"
+              onPress={handleAddProduct}
             />
-            <AddProductButton onPress={handleAddProduct} />
           </ModalView>
         </CenteredView>
       </Modal>
@@ -141,10 +115,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: 8,
     marginLeft: 10,
-    marginBottom: 10,
     width: '80%',
     borderRadius: 10,
   },
 });
 
-export default HomeScreen;
+export default AddFreshProduct;

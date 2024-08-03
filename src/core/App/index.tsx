@@ -1,4 +1,4 @@
-import type {FC} from 'react';
+import React from 'react';
 import {Platform, StyleSheet, UIManager} from 'react-native';
 import {ThemeProvider} from 'styled-components/native';
 import {ApolloProvider} from '@apollo/client';
@@ -12,6 +12,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import useConnect from './connect';
 import 'react-native-gesture-handler';
 import '../../core/i18n';
+import {ProductsProvider} from '../../views/AddFreshProduct/ProductsContext';
 
 if (
   Platform.OS === 'android' &&
@@ -38,10 +39,12 @@ export const Root: FC = () => {
       <ApolloProvider client={apolloClient}>
         <SafeAreaProvider>
           <GestureHandlerRootView style={styles.gestureHandler}>
-            <NavigationContainer>
-              <StatusBar />
-              <AppNavigator />
-            </NavigationContainer>
+            <ProductsProvider>
+              <NavigationContainer>
+                <StatusBar />
+                <AppNavigator />
+              </NavigationContainer>
+            </ProductsProvider>
           </GestureHandlerRootView>
         </SafeAreaProvider>
       </ApolloProvider>
