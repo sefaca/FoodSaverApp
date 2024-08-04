@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {FlatList, View} from 'react-native';
+import {FlatList} from 'react-native';
 import {Container} from './styles';
 import Card from '../../common/ui/components/Card';
 import {useProducts} from '../AddFreshProduct/ProductsContext';
@@ -10,20 +10,20 @@ import {useNavigation} from '@react-navigation/native';
 export const Fridge = () => {
   const {products} = useProducts();
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
   const navigation = useNavigation();
 
-  const toggleSelection = item => {
-    setSelectedItems(prevSelected =>
-      prevSelected.includes(item)
-        ? prevSelected.filter(i => i !== item)
-        : [...prevSelected, item],
+  const handleProductPress = (productName: string) => {
+    setSelectedProducts(prevState =>
+      prevState.includes(productName)
+        ? prevState.filter(name => name !== productName)
+        : [...prevState, productName],
     );
   };
 
-  const handleButtonPress = () => {
-    navigation.navigate('RecipeSuggestions', {selectedItems});
-  };
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
 
   return (
     <Container>
@@ -33,17 +33,24 @@ export const Fridge = () => {
         onChangeText={setSearchTerm}
       />
       <FlatList
-        data={products}
+        data={filteredProducts}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item}) => (
           <Card
             image={item.image}
             title={item.name}
-            onPress={() => toggleSelection(item)}
+            onPress={() => handleProductPress(item.name)}
+            selected={selectedProducts.includes(item.name)}
           />
         )}
       />
-      <FloatingButton onPress={handleButtonPress} />
+      <FloatingButton
+        onPress={() =>
+          navigation.navigate('RecipeScreen', {
+            selectedIngredients: selectedProducts,
+          })
+        }
+      />
     </Container>
   );
 };

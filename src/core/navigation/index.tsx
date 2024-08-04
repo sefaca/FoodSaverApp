@@ -7,6 +7,7 @@ import {ChooseScreen} from '../../views/ChooseScreen';
 import AddFreshProduct from '../../views/AddFreshProduct';
 import {Fridge} from '../../views/Fridge';
 import type {RootParamsList} from './types';
+import {RecipeScreen} from '../../views/RecipeScreen';
 
 const {Navigator, Group, Screen} = createNativeStackNavigator<RootParamsList>();
 
@@ -18,6 +19,7 @@ const AppNavigator: React.FC = () => (
       <Screen name="AddFreshProduct" component={AddFreshProduct} />
       <Screen name="Fridge" component={Fridge} />
       <Screen name="AddProduct" component={AddProduct} />
+      <Screen name="RecipeScreen" component={RecipeScreen} />
     </Group>
   </Navigator>
 );

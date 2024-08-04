@@ -1,7 +1,8 @@
 export type Props = {
-  id?: string;
+  image: string;
   title: string;
+  nutriScore?: string;
   description?: string;
-  image?: string;
-  onPress?: () => void;
+  onPress: () => void;
+  selected: boolean;
 };

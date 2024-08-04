@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
 import {TouchableOpacity} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
@@ -11,27 +10,21 @@ const Card: React.FC<Props> = ({
   // nutriScore,
   // description,
   onPress,
+  selected,
 }) => {
-  const [isSelected, setIsSelected] = useState(false);
-
-  const toggleCheckbox = () => {
-    setIsSelected(!isSelected);
-  };
-
   return (
     <TouchableOpacity onPress={onPress}>
       <Container>
-        <CheckBox value={isSelected} onValueChange={toggleCheckbox} />
+        <CheckBox value={selected} onValueChange={onPress} />
         <Image source={{uri: image}} style={{marginLeft: 10}} />
         <ProductData>
-
-        <TitleProduct numberOfLines={1}>{title}</TitleProduct>
-        {/* {nutriScore && (
-          <Text style={{marginVertical: 5, fontWeight: 'bold'}}>
-            Nutri-Score: {nutriScore.toUpperCase()}
-          </Text>
-        )} */}
-        {/* <Description numberOfLines={2}>{description}</Description> */}
+          <TitleProduct numberOfLines={1}>{title}</TitleProduct>
+          {/* {nutriScore && (
+            <Text style={{marginVertical: 5, fontWeight: 'bold'}}>
+              Nutri-Score: {nutriScore.toUpperCase()}
+            </Text>
+          )} */}
+          {/* <Description numberOfLines={2}>{description}</Description> */}
         </ProductData>
       </Container>
     </TouchableOpacity>
