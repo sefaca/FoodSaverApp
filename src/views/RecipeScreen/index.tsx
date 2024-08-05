@@ -56,7 +56,7 @@ export const RecipeScreen = () => {
 
   return (
     <Container>
-      <Title>Suggested Recipes</Title>
+      <Title>Recetas sugeridas</Title>
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
@@ -68,7 +68,7 @@ export const RecipeScreen = () => {
               </RecipeCard>
             ))
           ) : (
-            <TextRecipe>No recipes found.</TextRecipe>
+            <TextRecipe>No se han encontrado recetas.</TextRecipe>
           )}
         </ScrollView>
       )}
