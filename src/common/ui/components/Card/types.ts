@@ -1,8 +1,10 @@
+/* eslint-disable prettier/prettier */
 export type Props = {
-  image: string;
-  title: string;
   nutriScore?: string;
   description?: string;
+  expirationDate?: string;
+  image: string;
+  title: string;
   onPress: () => void;
   selected: boolean;
 };

@@ -1,11 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ActivityIndicator,
-  ScrollView,
-} from 'react-native';
+import {ActivityIndicator, ScrollView} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import axios from 'axios';
 import {Container, TextRecipe, RecipeCard, Title} from './styles';

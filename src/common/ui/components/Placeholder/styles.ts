@@ -6,11 +6,12 @@ export const Container = styled.View`
   border-color: ${({theme}) => theme.colors.white};
   border-width: 1px;
   margin: 10px;
-  width: 90%;
+  width: 80%;
   padding-horizontal: 10px;
   border-radius: 16px;
   justify-content: center;
   margin-top: 70px;
+  margin-right: 30px;
 `;
 
 export const TextInputStyled = styled.TextInput.attrs(({theme}) => ({

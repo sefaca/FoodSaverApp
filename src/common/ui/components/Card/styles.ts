@@ -14,11 +14,11 @@ export const Container = styled.View`
 `;
 
 export const ProductData = styled.View`
-  flex-direction: row;
+  flex-direction: column;
   width: 66%;
   height: 80px;
   background-color: ${({theme}) => theme.colors.white};
-  align-items: center;
+  justify-content: center;
   border-bottom-right-radius: 8px;
   border-top-right-radius: 8px;
 `;
@@ -36,4 +36,12 @@ export const TitleProduct = styled(Text).attrs({
 })`
   margin-left: 10px;
   color: ${({theme}) => theme.colors.greenSoft};
+`;
+
+export const ExpirationDate = styled(Text).attrs({
+  variant: 'body15-semibold',
+})`
+  margin-top: 5px;
+  color: ${({theme}) => theme.colors.red};
+  margin-left: 10px;
 `;

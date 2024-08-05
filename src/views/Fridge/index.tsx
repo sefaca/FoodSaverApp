@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import {FlatList} from 'react-native';
-import {Container} from './styles';
+import {Container, PlaceholderContainer} from './styles';
 import Card from '../../common/ui/components/Card';
 import {useProducts} from '../AddFreshProduct/ProductsContext';
 import Placeholder from '../../common/ui/components/Placeholder';
 import FloatingButton from '../../common/ui/components/FloatingButton';
 import {useNavigation} from '@react-navigation/native';
+import BackButton from '../../common/ui/components/BackButton';
 
 export const Fridge = () => {
   const {products} = useProducts();
@@ -27,11 +28,14 @@ export const Fridge = () => {
 
   return (
     <Container>
-      <Placeholder
-        placeholderInput="Busca el producto"
-        value={searchTerm}
-        onChangeText={setSearchTerm}
-      />
+      <PlaceholderContainer>
+        <BackButton />
+        <Placeholder
+          placeholderInput="Busca el producto"
+          value={searchTerm}
+          onChangeText={setSearchTerm}
+        />
+      </PlaceholderContainer>
       <FlatList
         data={filteredProducts}
         keyExtractor={(item, index) => index.toString()}
@@ -39,6 +43,7 @@ export const Fridge = () => {
           <Card
             image={item.image}
             title={item.name}
+            expirationDate={item.expirationDate}
             onPress={() => handleProductPress(item.name)}
             selected={selectedProducts.includes(item.name)}
           />

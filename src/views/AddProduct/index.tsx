@@ -1,11 +1,6 @@
+/* eslint-disable prettier/prettier */
 import React, {useEffect, useState} from 'react';
-import {
-  Text,
-  View,
-  FlatList,
-  StyleSheet,
-  ActivityIndicator,
-} from 'react-native';
+import {Text, FlatList, ActivityIndicator} from 'react-native';
 import Card from '../../common/ui/components/Card';
 import {Container} from './styles';
 import Placeholder from '../../common/ui/components/Placeholder';
@@ -84,8 +79,7 @@ export const AddProduct = () => {
           <Card
             image={item.image_url}
             title={item.product_name}
-            onPress={() => console.log(item.product_name)}
-          />
+            onPress={() => console.log(item.product_name)} selected={false}          />
         )}
       />
     </Container>
