@@ -15,7 +15,7 @@ const Placeholder: React.FC<Props> = ({
 }) => (
   <Container style={[{flexDirection: 'row', alignItems: 'center'}, style]}>
     <TouchableOpacity onPress={onBackPress} style={{marginRight: 10}}>
-      <Icon name="arrow-back-outline" size={24} color="#000" />
+      <Icon name="arrow-back-outline" size={24} color="white" />
     </TouchableOpacity>
     <TextInputStyled
       placeholder={placeholderInput}
