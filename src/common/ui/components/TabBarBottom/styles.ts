@@ -11,4 +11,7 @@ export const Main = styled.View<MainProps>`
   bottom: 0;
   left: 0;
   background-color: ${({theme}) => theme.colors.white};
+  align-items: center;
+  padding-left: 60px;
+  padding-right: 60px;
 `;
