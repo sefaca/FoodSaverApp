@@ -5,12 +5,13 @@ import Text from '../Text';
 
 export const Container = styled.View`
   flex-direction: row;
-  width: 365px;
+  width: 378px;
   height: auto;
   border-radius: 8px;
   margin-top: 5px;
   margin-bottom: 10px;
   align-items: center;
+  margin-right: 5px;
 `;
 
 export const ProductData = styled.View`

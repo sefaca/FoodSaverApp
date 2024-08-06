@@ -10,5 +10,3 @@ export const Container = styled.View`
 export const PlaceholderContainer = styled.View`
   flex-direction: row;
 `;
-
-export const Text = styled.Text``;

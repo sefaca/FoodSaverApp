@@ -10,4 +10,5 @@ export type RootTabParamList = {
   AddFreshProduct: undefined;
   Fridge: undefined;
   RecipeScreen: undefined;
+  Main: undefined;
 };

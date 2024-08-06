@@ -12,6 +12,7 @@ const tabs: Record<keyof RootTabParamList, string> = {
   AddFreshProduct: 'AddFreshProduct',
   Fridge: 'Fridge',
   RecipeScreen: 'RecipeScreen',
+  Main: 'Main',
 };
 
 const actions = {

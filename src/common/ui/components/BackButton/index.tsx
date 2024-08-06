@@ -5,13 +5,22 @@ import {Container} from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import type {Props} from './types';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
 
-const BackButton: FC<Props> = ({onPress, style}) => (
-  <Container style={style}>
-    <TouchableOpacity enabled={!!onPress} onPress={onPress}>
-      <Icon name="arrow-back-outline" size={30} color="white" />
-    </TouchableOpacity>
-  </Container>
-);
+const BackButton: FC<Props> = ({style}) => {
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.goBack();
+  };
+
+  return (
+    <Container style={style}>
+      <TouchableOpacity onPress={handlePress}>
+        <Icon name="arrow-back-outline" size={30} color="white" />
+      </TouchableOpacity>
+    </Container>
+  );
+};
 
 export default memo(BackButton);
