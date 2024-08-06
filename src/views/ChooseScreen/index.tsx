@@ -1,7 +1,7 @@
 import CircleButton from '../../common/ui/components/ChooseButton';
-import {Img} from '../../common/ui/components/ChooseButton/styles';
-import {ButtonContainer, Container, Title} from './styles';
+import {ButtonContainer, Container, Img} from './styles';
 import {useNavigation} from '@react-navigation/native';
+import {Icon} from 'react-native-elements';
 
 export const ChooseScreen = () => {
   const navigation = useNavigation();
@@ -20,11 +20,19 @@ export const ChooseScreen = () => {
       <ButtonContainer>
         <CircleButton
           title="Añade un producto fresco"
+          description="Añade nuevos alimentos frescos a tu despensa o frigorífico"
           onPress={handleAddFreshProductScreen}
+          icon={
+            <Icon name="lemon-o" type="font-awesome" size={40} color="white" />
+          }
         />
         <CircleButton
           title="Añade un producto con caducidad"
+          description="Añade nuevos productos que tengan fecha de caducidad a tu despensa o frigorífico"
           onPress={handleHomeScreen}
+          icon={
+            <Icon name="clock-o" type="font-awesome" size={40} color="white" />
+          }
         />
       </ButtonContainer>
     </Container>
