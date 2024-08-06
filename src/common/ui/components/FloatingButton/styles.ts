@@ -18,6 +18,7 @@ export const Container = styled.View`
   border-color: ${({theme}) => theme.colors.gray};
   border-radius: 55px;
   margin: 5px;
+  margin-bottom: 50px;
 `;
 
 export const Pressable = styled(RectButton)`
