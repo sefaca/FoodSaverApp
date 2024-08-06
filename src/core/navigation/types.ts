@@ -21,6 +21,7 @@ export type RootParamsList = {
   ChooseScreen: undefined;
   AddFreshProduct: undefined;
   Fridge: undefined;
+  RecipeScreen: undefined;
 };
 
 export type ScreensParamsList = RootParamsList & RootTabParamList;

@@ -1,6 +1,6 @@
 import {RNCamera} from 'react-native-camera';
 import styled from 'styled-components/native';
-import {Animated} from 'react-native';
+import {Animated, TextInput} from 'react-native';
 import Text from '../../common/ui/components/Text';
 
 export const Container = styled.View`
@@ -86,4 +86,14 @@ export const ModalText = styled(Text).attrs({
 })`
   margin-bottom: 15px;
   text-align: center;
+`;
+
+export const StyledTextInput = styled(TextInput)`
+  height: 40px;
+  border-color: gray;
+  border-width: 1px;
+  padding-left: 8px;
+  margin-left: 10px;
+  width: 80%;
+  border-radius: 10px;
 `;

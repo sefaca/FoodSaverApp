@@ -69,13 +69,8 @@ export const HomeScreen = () => {
     }
   };
 
-  // const handleAddProduct = () => {
-  //   setModalVisible(false);
-  //   navigation.navigate('AddProduct');
-  // };
-
   const handleAddProduct = () => {
-    addProduct({name: productName, image: imageUri});
+    addProduct({name: productName, image: imageUri, expirationDate: foundDate});
     setModalVisible(false);
     setProductName('');
     setImageUri(null);

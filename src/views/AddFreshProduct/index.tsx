@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import {Text, Modal, View, TextInput, StyleSheet, Image} from 'react-native';
+import {Text, Modal, TextInput, StyleSheet} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import TextRecognition from 'react-native-text-recognition';
 import {useNavigation} from '@react-navigation/native';
@@ -9,10 +9,10 @@ import {
   CenteredView,
   Container,
   ImageModal,
-  ModalText,
   ModalView,
   PendingView,
   ProductInfo,
+  StyledTextInput,
 } from './styles';
 import CameraButton from '../../common/ui/components/CameraButton';
 import AddProductButton from '../../common/ui/components/AddProductButton';
@@ -90,11 +90,10 @@ export const AddFreshProduct = () => {
           <ModalView>
             <ProductInfo>
               {imageUri && <ImageModal source={{uri: imageUri}} />}
-              <TextInput
+              <StyledTextInput
                 placeholder="Nombre del producto"
                 value={productName}
                 onChangeText={setProductName}
-                style={styles.input}
               />
             </ProductInfo>
             <AddProductButton
@@ -107,17 +106,5 @@ export const AddFreshProduct = () => {
     </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    paddingLeft: 8,
-    marginLeft: 10,
-    width: '80%',
-    borderRadius: 10,
-  },
-});
 
 export default AddFreshProduct;

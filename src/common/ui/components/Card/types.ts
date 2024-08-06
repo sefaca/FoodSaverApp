@@ -1,7 +1,10 @@
+/* eslint-disable prettier/prettier */
 export type Props = {
-  id?: string;
-  title: string;
+  nutriScore?: string;
   description?: string;
-  image?: string;
-  onPress?: () => void;
+  expirationDate?: string;
+  image: string;
+  title: string;
+  onPress: () => void;
+  selected: boolean;
 };

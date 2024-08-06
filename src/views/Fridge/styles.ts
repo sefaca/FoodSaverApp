@@ -7,4 +7,8 @@ export const Container = styled.View`
   justify-content: center;
 `;
 
+export const PlaceholderContainer = styled.View`
+  flex-direction: row;
+`;
+
 export const Text = styled.Text``;
