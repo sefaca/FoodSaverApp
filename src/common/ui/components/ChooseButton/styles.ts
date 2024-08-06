@@ -26,3 +26,9 @@ export const Title = styled(Text).attrs({
 })`
   color: ${({theme}) => theme.colors.greenSoft};
 `;
+
+export const Img = styled.Image`
+  width: 300px;
+  height: 300px;
+  resize-mode: contain;
+`;

@@ -1,4 +1,5 @@
 import CircleButton from '../../common/ui/components/ChooseButton';
+import {Img} from '../../common/ui/components/ChooseButton/styles';
 import {ButtonContainer, Container, Title} from './styles';
 import {useNavigation} from '@react-navigation/native';
 
@@ -15,7 +16,7 @@ export const ChooseScreen = () => {
 
   return (
     <Container>
-      <Title>Food Saver!</Title>
+      <Img source={require('../../assets/imgs/logo1.png')} />
       <ButtonContainer>
         <CircleButton
           title="Añade un producto fresco"
